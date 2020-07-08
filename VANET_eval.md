@@ -13,7 +13,7 @@ The RSA key length is set to 2048 bits, which is safe enough currently.
 - [rsa2048_sha256_sig_verify.log](./rsa2048_sha256_sig_verify.log)
 - [vanet_rsa2048.log](./vanet_rsa2048.log)
 
-Please refer to the repository [zokrates_vanet](https://github.com/imtypist/zokrates_vanet/blob/master/README.md) to find the detailed primitives of VANET.
+Please refer to the repository [zokrates_vanet](https://github.com/imtypist/zokrates_vanet/blob/master/README.md) to find the detailed primitives of VANET. [VANETCircuitGenerator](https://github.com/imtypist/jsnark/blob/master/JsnarkCircuitBuilder/src/examples/generators/rsa/VANETCircuitGenerator.java) is the circuit generator code of VANET.
 
 The output below is the testcase for VANET, the example input is a pseudo random address concatenating a piece of GPS raw data.
 
