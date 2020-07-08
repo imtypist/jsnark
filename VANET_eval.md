@@ -2,7 +2,7 @@
 
 ## setting
 
-- Here we used `jsnark` to implement zkSNARKs, according to the performance comparison of three classic zero knowledge prove (ZKP) algorithms provided in `libsnark`, we chose the better one [Groth16](https://github.com/akosba/libsnark/tree/master/libsnark/zk_proof_systems/ppzksnark) as our underlying ZKP technology.
+- Here we used `jsnark` to implement zkSNARKs, according to the performance comparison of three classic zero knowledge proof (ZKP) algorithms provided in `libsnark`, we chose the better one [Groth16](https://github.com/akosba/libsnark/tree/master/libsnark/zk_proof_systems/ppzksnark) as our underlying ZKP technology.
 - The experiment setting is that using a virtual machine (VM) `ubuntu14.04` running on VirtualBox, the number of VM's CPU core is 2, the size of memory is 4GB; The localhost CPU is `Intel i7-7700`, the size of memory is 16GB.
 
 ## performance
