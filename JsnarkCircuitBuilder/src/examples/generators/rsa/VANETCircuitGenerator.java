@@ -1,10 +1,11 @@
-package examples.generators;
+package examples.generators.rsa;
 
 import java.math.BigInteger;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.SecureRandom;
+import java.security.Signature;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
@@ -52,7 +53,7 @@ public class VANETCircuitGenerator extends CircuitGenerator{
         // verify the signature
         publicKey = createProverWitnessWireArray(rsaKeyLength/4); // private witness, rsaModulus
         for(int i = 0; i < rsaKeyLength/4;i++){ // in bytes
-            publicKey[i].restrictBitwidth();
+            publicKey[i].restrictBitLength(8);
         }
         sha2Gadget = new SHA256Gadget(publicKey, 8, publicKey.length, false, true);
         Wire[] digest = sha2Gadget.getOutputWires();
@@ -109,12 +110,12 @@ public class VANETCircuitGenerator extends CircuitGenerator{
 
     @Override
     public void generateSampleInput(CircuitEvaluator evaluator) {
-        // simulate input message
-        String msg = "";
+        // simulate input message, e.g., pseudo random address || GPS data
+        String msg = "0xd91c747b4a76B8013Aa336Cbc52FD95a7a9BD3D9$GPRMC,092927.000,A,2235.9058,N,11400.0518,E,0.000,74.11,151216,,D*49";
         for (int i = 0; i < inputMessage.length; i++) {
 
-            evaluator.setWireValue(inputMessage[i], (int) ('a' + i));
-            msg = msg + (char) ('a' + i);
+            evaluator.setWireValue(inputMessage[i], msg.charAt(i));
+            // msg = msg + (char) ('a' + i);
         }
         System.out.println("PlainText:" + msg);
 
@@ -138,7 +139,7 @@ public class VANETCircuitGenerator extends CircuitGenerator{
             byte[] message = modulus.toString(16).getBytes();
             // publicKey wire array
             for (int i = 0; i < message.length; i++){
-                evaluator.setWireValue(publicKey[i], message[i])
+                evaluator.setWireValue(publicKey[i], message[i]);
             }
             signature.update(message);
             byte[] sigBytes = signature.sign();
@@ -192,7 +193,7 @@ public class VANETCircuitGenerator extends CircuitGenerator{
 
     public static void main(String[] args) throws Exception {
         int keyLength = 2048;
-        int msgLength = 3;
+        int msgLength = 111;
         VANETCircuitGenerator generator = new VANETCircuitGenerator(
                 "vanet_rsa" + keyLength, keyLength, msgLength);
         generator.generateCircuit();
